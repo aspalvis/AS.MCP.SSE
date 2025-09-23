@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS.MCP.SSE", "src\AS.MCP.SSE\AS.MCP.SSE.csproj", "{957EC128-D7CA-4737-B7C0-2F361DFB7081}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS.MCP.SSE.Shared", "src\AS.MCP.SSE.Shared\AS.MCP.SSE.Shared.csproj", "{193593E6-432F-4726-AA53-213B8B11892A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{957EC128-D7CA-4737-B7C0-2F361DFB7081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957EC128-D7CA-4737-B7C0-2F361DFB7081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957EC128-D7CA-4737-B7C0-2F361DFB7081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957EC128-D7CA-4737-B7C0-2F361DFB7081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193593E6-432F-4726-AA53-213B8B11892A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193593E6-432F-4726-AA53-213B8B11892A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193593E6-432F-4726-AA53-213B8B11892A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193593E6-432F-4726-AA53-213B8B11892A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{957EC128-D7CA-4737-B7C0-2F361DFB7081} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{193593E6-432F-4726-AA53-213B8B11892A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B8AAE26-DE4D-47EB-949A-B78996C14D6A}
+	EndGlobalSection
+EndGlobal
