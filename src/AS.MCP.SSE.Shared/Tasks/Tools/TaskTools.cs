@@ -1,5 +1,7 @@
 ﻿namespace AS.MCP.SSE.Shared.Tasks.Tools
 {
+    using AS.MCP.SSE.Shared.Tasks.Dtos;
+    using AS.MCP.SSE.Shared.Tasks.Services;
     using ModelContextProtocol.Server;
     using System.ComponentModel;
     using System.Text.Json;
@@ -7,41 +9,53 @@
     [McpServerToolType]
     public sealed class TaskTools
     {
-        [McpServerTool, Description("Get list of agent tasks.")]
-        public Task<string> GetTasks()
-        {
-            var tasks = new[]
-            {
-                new
-                {
-                    Id = 1,
-                    Title = "Implement User Authentication UI",
-                    Description = "Create login and registration forms with validation",
-                    Type = "Frontend",
-                    Priority = "High",
-                    Status = "In Progress",
-                    AssignedTo = "Frontend Developer",
-                    EstimatedHours = 16,
-                    DueDate = "2024-01-15"
-                },
-                new
-                {
-                    Id = 2,
-                    Title = "Design Responsive Dashboard Layout",
-                    Description = "Create a responsive dashboard with charts and widgets",
-                    Type = "Frontend",
-                    Priority = "Medium",
-                    Status = "Pending",
-                    AssignedTo = "UI/UX Developer",
-                    EstimatedHours = 24,
-                    DueDate = "2024-01-20"
-                }
-            };
+        private readonly ITaskService _taskService;
 
-            return Task.FromResult(JsonSerializer.Serialize(tasks, new JsonSerializerOptions
+        public TaskTools(ITaskService taskService)
+        {
+            _taskService = taskService ?? throw new ArgumentNullException(nameof(taskService));
+        }
+
+        [McpServerTool, Description("Get list of agent tasks.")]
+        public async Task<string> GetTasks()
+        {
+            var tasks = await _taskService.GetTasks();
+            
+            return JsonSerializer.Serialize(tasks, new JsonSerializerOptions
             {
                 WriteIndented = true
-            }));
+            });
+        }
+
+        [McpServerTool, Description("Add a new task.")]
+        public async Task<string> AddTask(
+            [Description("Task title")] string title,
+            [Description("Task description")] string description,
+            [Description("Task type")] string type,
+            [Description("Task priority")] string priority,
+            [Description("Task status")] string status,
+            [Description("Assigned to")] string assignedTo,
+            [Description("Estimated hours")] int estimatedHours,
+            [Description("Due date")] string dueDate)
+        {
+            var taskDto = new CreateTaskDto
+            {
+                Title = title,
+                Description = description,
+                Type = type,
+                Priority = priority,
+                Status = status,
+                AssignedTo = assignedTo,
+                EstimatedHours = estimatedHours,
+                DueDate = dueDate
+            };
+
+            var taskId = await _taskService.AddTask(taskDto);
+            
+            return JsonSerializer.Serialize(new { message = "Task added successfully", taskId = taskId }, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
         }
     }
 }
