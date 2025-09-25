@@ -1,6 +1,9 @@
 using AS.MCP.SSE.Shared.Tasks.Tools;
+using AS.MCP.SSE.Shared.Tasks.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport()
