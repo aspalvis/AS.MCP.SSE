@@ -1,30 +1,30 @@
 using AS.MCP.SSE.Shared.Tasks.Models;
+using AS.MCP.SSE.Shared.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AS.MCP.SSE.Shared.Tasks.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly List<AgentTask> _tasks;
-        private int _nextId = 1;
+        private readonly TaskDbContext _context;
 
-        public TaskService()
+        public TaskService(TaskDbContext context)
         {
-            _tasks = new List<AgentTask>();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<IEnumerable<AgentTask>> GetTasks()
+        public async Task<IEnumerable<AgentTask>> GetTasks()
         {
-            return Task.FromResult(_tasks.AsEnumerable());
+            return await _context.Tasks.ToListAsync();
         }
 
-        public Task AddTask(AgentTask task)
+        public async Task AddTask(AgentTask task)
         {
             if (task == null)
                 throw new ArgumentNullException(nameof(task));
 
-            task.Id = _nextId++;
-            _tasks.Add(task);
-            return Task.CompletedTask;
+            _context.Tasks.Add(task);
+            await _context.SaveChangesAsync();
         }
     }
 }
