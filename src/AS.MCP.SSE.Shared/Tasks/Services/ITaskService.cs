@@ -1,10 +1,10 @@
-using AS.MCP.SSE.Shared.Tasks.Models;
+using AS.MCP.SSE.Shared.Tasks.Dtos;
 
 namespace AS.MCP.SSE.Shared.Tasks.Services
 {
     public interface ITaskService
     {
-        Task<IEnumerable<AgentTask>> GetTasks();
-        Task AddTask(AgentTask task);
+        Task<IEnumerable<TaskDto>> GetTasks();
+        Task<int> AddTask(CreateTaskDto taskDto);
     }
 }

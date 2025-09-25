@@ -1,6 +1,6 @@
 ﻿namespace AS.MCP.SSE.Shared.Tasks.Tools
 {
-    using AS.MCP.SSE.Shared.Tasks.Models;
+    using AS.MCP.SSE.Shared.Tasks.Dtos;
     using AS.MCP.SSE.Shared.Tasks.Services;
     using ModelContextProtocol.Server;
     using System.ComponentModel;
@@ -38,7 +38,7 @@
             [Description("Estimated hours")] int estimatedHours,
             [Description("Due date")] string dueDate)
         {
-            var task = new AgentTask
+            var taskDto = new CreateTaskDto
             {
                 Title = title,
                 Description = description,
@@ -50,9 +50,9 @@
                 DueDate = dueDate
             };
 
-            await _taskService.AddTask(task);
+            var taskId = await _taskService.AddTask(taskDto);
             
-            return JsonSerializer.Serialize(new { message = "Task added successfully", taskId = task.Id }, new JsonSerializerOptions
+            return JsonSerializer.Serialize(new { message = "Task added successfully", taskId = taskId }, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
